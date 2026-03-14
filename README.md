@@ -32,7 +32,7 @@ Key highlights:
 
 > **EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis**
 >
-> *Paper under review — full citation will be added upon acceptance.*
+> *Paper under review — full citation will be added.*
 
 <!--
 Once published, update the arXiv badge URL above and add the abstract here.
