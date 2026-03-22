@@ -20,7 +20,7 @@
 **EchoLVFM** is a one-step video generation framework based on Latent Flow Matching, designed for high-fidelity echocardiogram synthesis. By operating directly in a compressed latent space and learning a continuous flow between noise and the target video distribution, EchoLVFM produces realistic cardiac ultrasound video in a **single forward pass** — dramatically reducing inference time compared to multi-step diffusion-based approaches.
 
 Key highlights:
-- ⚡ **One-step Inference** — generate a full echocardiogram video in a single forward pass
+- ⚡ **One-step Inference** — generate a full video in a single forward pass
 - ⏱️ **Variable-length Videos** - supports training on videos of different lengths and allows users to choose the length of the generated video up to a maximum $F$
 - 🫀 **Global Parameter Conditioning** — preserves clinically relevant cardiac structures and motion patterns
 - 📐 **Latent Video Flow Matching** — efficient training in a low-dimensional latent space
