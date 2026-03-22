@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg)](https://arxiv.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-2603.13967-b31b1b.svg)](https://arxiv.org/abs/2603.13967)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 </div>
@@ -32,23 +32,20 @@ Key highlights:
 
 > **EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis**
 >
-> *Paper under review — full citation will be added.*
-
-<!--
-Once published, update the arXiv badge URL above and add the abstract here.
--->
+> Available on arXiv: https://arxiv.org/abs/2603.13967
 
 ## Citation
 
 If you find this work useful, please consider citing:
 
 ```bibtex
-@article{echolvfm2026,
-  title     = {EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis},
-  author    = {},
-  journal   = {},
-  year      = {2026},
-  url       = {https://arxiv.org/abs/}
+@misc{echolvfm2026,
+  title         = {EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis},
+  author        = {},
+  year          = {2026},
+  eprint        = {2603.13967},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2603.13967}
 }
 ```
 
