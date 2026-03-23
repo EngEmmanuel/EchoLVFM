@@ -26,6 +26,25 @@ Key highlights:
 - 📐 **Latent Video Flow Matching** — efficient training in a low-dimensional latent space
 
 
+## Visual Demos
+
+### Generation Demo
+
+![Generation demo](docs/media/demos/generation_demo.gif)
+
+Caption: **Generation case** — conditioned on an EF value that is **different** from the real video's EF.
+
+MP4 version (with playback controls/speed): [generation_demo.mp4](docs/media/demos/generation_demo.mp4)
+
+### Reconstruction Demo
+
+![Reconstruction demo](docs/media/demos/reconstruction_demo.gif)
+
+Caption: **Reconstruction case** — conditioned on an EF value that is the **same** as the real video's EF.
+
+MP4 version (with playback controls/speed): [reconstruction_demo.mp4](docs/media/demos/reconstruction_demo.mp4)
+
+
 ---
 
 ## Paper
