@@ -34,6 +34,25 @@ Key highlights:
 >
 > Available on arXiv: https://arxiv.org/abs/2603.13967
 
+## Videos
+
+Sample and demo videos are stored in the [`videos/`](videos/) folder.
+
+### Adding Videos Without Cloning
+
+You can upload videos directly through GitHub's web interface — no Git knowledge required:
+
+1. Go to the [`videos/`](https://github.com/EngEmmanuel/EchoLVFM/tree/main/videos) folder on GitHub.
+2. Click **"Add file"** → **"Upload files"**.
+3. Drag and drop your video files (or click to browse).
+4. Add a short commit message and click **"Commit changes"**.
+
+> **Note:** GitHub supports files up to **100 MB** via the web interface.  
+> This repository uses [Git LFS](https://git-lfs.github.com/) for larger video files (up to 2 GB), which requires a local Git + LFS setup.  
+> See [`videos/README.md`](videos/README.md) for more details.
+
+---
+
 ## Citation
 
 If you find this work useful, please consider citing:
