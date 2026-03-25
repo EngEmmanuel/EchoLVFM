@@ -30,6 +30,8 @@ Key highlights:
 
 ### Generation Demo
 
+⏳ *GIF loading… please wait a moment*
+
 ![Generation demo](docs/media/demos/generation_demo.gif)
 
 Caption: **Generation case** — conditioned on an EF value that is **different** from the real video's EF.
@@ -37,6 +39,8 @@ Caption: **Generation case** — conditioned on an EF value that is **different*
 MP4 version (with playback controls/speed): [generation_demo.mp4](docs/media/demos/generation_demo.mp4)
 
 ### Reconstruction Demo
+
+⏳ *GIF loading… please wait a moment*
 
 ![Reconstruction demo](docs/media/demos/reconstruction_demo.gif)
 
