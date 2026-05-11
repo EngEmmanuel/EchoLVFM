@@ -7,8 +7,6 @@
 
 </div>
 
----
-
 ## 📰 News
 
 - 🎉 **May 2026** EchoLVFM has been **early-accepted at MICCAI 2026**, selected from the top 9% of 4,601 submissions!
