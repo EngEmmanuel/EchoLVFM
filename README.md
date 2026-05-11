@@ -165,8 +165,5 @@ If you find this work useful, please consider citing:
 ```
 
 ## Acknowledgements
-
-This work builds on the following open-source projects:
-
-- Wang, P.: [rectified-flow-pytorch](https://gitlab.com/lucidrains/rectified-flow-pytorch). GitLab (2026).
-- Morehead, A.: [JVP Flash Attention](https://github.com/amorehead/jvp_flash_attention). GitHub (September 2025).
+- Wang, P.: [rectified-flow-pytorch](https://gitlab.com/lucidrains/rectified-flow-pytorch). 
+- Morehead, A.: [JVP Flash Attention](https://github.com/amorehead/jvp_flash_attention).
