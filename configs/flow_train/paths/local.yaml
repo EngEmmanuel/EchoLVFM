@@ -1,0 +1,12 @@
+# Path configuration — edit these to match your local setup.
+#
+# data_path should contain:
+#   CAMUS_Latents_4f4/   (or 4f8 / 16f8 depending on vae.resolution)
+#     metadata.csv
+#     <video_name>.pt   (one file per video)
+#
+# The default below points at the bundled sample dataset for a quick start.
+# Replace with your full dataset path for real training.
+
+data_path: sample_data
+train_output_path: outputs

@@ -1,0 +1,9 @@
+type: unet
+kwargs:
+  down_block_types: [CrossAttnDownBlockSpatioTemporal, CrossAttnDownBlockSpatioTemporal, CrossAttnDownBlockSpatioTemporal, CrossAttnDownBlockSpatioTemporal]
+  up_block_types:   [UpBlockSpatioTemporal, UpBlockSpatioTemporal, UpBlockSpatioTemporal, CrossAttnUpBlockSpatioTemporal]
+  block_out_channels: [128, 128, 256, 256]   # must be divisible by 32
+  num_attention_heads: [4, 4, 8, 8]    # head dim must be 32, 64 etc.,
+  cross_attention_dim: 1 # must be 1
+  layers_per_block: 2
+  transformer_layers_per_block: [1,1,2,2]

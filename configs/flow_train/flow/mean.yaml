@@ -1,0 +1,11 @@
+type: mean
+kwargs:
+  add_recon_loss: true
+  recon_loss_weight: 1.0
+  prob_default_flow_obj: 0.75
+  adaptive_loss_weight_p: 0.5
+  use_jvp_flash_attn: true
+
+sample_kwargs:
+  steps: 1
+

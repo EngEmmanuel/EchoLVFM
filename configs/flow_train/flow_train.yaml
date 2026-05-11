@@ -1,0 +1,60 @@
+defaults:
+  - _self_
+  - model: unet
+  - flow: mean
+  - paths: local  # Override with your own paths config
+
+dataset:
+  path: ${paths.data_path}/CAMUS_Latents_${vae.resolution}
+  normalise_latents: true
+  add_eps_to_train_latents: false
+  latent_scaling_path: ${paths.data_path}/CAMUS_Latents_${vae.resolution}/CAMUS_Scaling_${vae.resolution}.pt
+  max_frames: 32
+  batch_size: 7
+  cond_pad_mask: true      # Append the padding mask as an extra conditioning channel
+  masking_distribution: uniform  # 'uniform' or 'geometric'
+
+vae:
+  resolution: 4f4  # Options: 4f4, 4f8, 16f8
+  repo_id: HReynaud/EchoFlow
+  subfolder: vae
+  scaling_factors:
+    4f4: 0.1080
+    4f8: 0.2232
+    16f8: 1.33
+  scaling_factor: ${vae.scaling_factors.${vae.resolution}}
+
+trainer:
+  lr: 5e-5
+  lr_scheduler: null   # Options: null (constant), cosineannealing, linear_decay
+  warmup_epochs: 10
+  loss_mask: pad       # 'pad' masks out padded frames from the loss
+  uncond_prob: 0.0     # Classifier-free guidance dropout probability
+  kwargs:
+    max_epochs: 1000
+    precision: 16
+    accelerator: auto
+    accumulate_grad_batches: 1
+
+sample:
+  every_n_epochs: 50
+  model_sample_kwargs: ${flow.sample_kwargs}
+
+ckpt:
+  metric:
+    monitor: val_loss
+    filename: '{epoch}-{step}-{val_loss:.3f}'
+    save_top_k: 1
+    mode: min
+    save_last: true
+
+# Uncomment to enable Weights & Biases logging:
+#wandb:
+#  watch: false
+#  init_kwargs:
+#    project: echoflow
+#    group: ${flow.type}
+
+hydra:
+  run:
+    dir: ${paths.train_output_path}/${now:%Y-%m-%d}/${now:%H-%M-%S}

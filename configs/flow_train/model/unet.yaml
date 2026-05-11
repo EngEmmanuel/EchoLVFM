@@ -1,0 +1,9 @@
+type: unet
+kwargs:
+  down_block_types: [CrossAttnDownBlockSpatioTemporal, DownBlockSpatioTemporal]
+  up_block_types: [UpBlockSpatioTemporal,  CrossAttnUpBlockSpatioTemporal]
+  block_out_channels: [64, 128]
+  num_attention_heads: [2, 4]
+  cross_attention_dim: 1
+  layers_per_block: 2
+  transformer_layers_per_block: 1
