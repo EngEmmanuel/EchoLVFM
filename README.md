@@ -9,6 +9,13 @@
 
 ---
 
+## 📰 News
+
+- 🎉 **May 2026** EchoLVFM has been **early-accepted at MICCAI 2026**, selected from the top 9% of 4,601 submissions!
+- 🫀 **May 2026** Try the live demo on [Hugging Face Spaces](https://huggingface.co/spaces/EngEmmanuel/EchoLVFM).
+
+---
+
 ## Overview
 
 **EchoLVFM** is a one-step video generation framework based on Latent Flow Matching, designed for high-fidelity echocardiogram synthesis. By operating directly in a compressed latent space and learning a continuous flow between noise and the target video distribution, EchoLVFM produces realistic cardiac ultrasound video in a **single forward pass** — dramatically reducing inference time compared to multi-step diffusion-based approaches.
@@ -19,6 +26,8 @@ Key highlights:
 - 🫀 **Global Parameter Conditioning** — preserves clinically relevant cardiac structures and motion patterns
 - 📐 **Latent Video Flow Matching** — efficient training in a low-dimensional latent space
 
+
+> 🎮 **Try it out!** Run EchoLVFM live in your browser on the [🫀 Hugging Face Space](https://huggingface.co/spaces/EngEmmanuel/EchoLVFM); no setup, no GPU required.
 
 ## Visual Demos
 
@@ -41,11 +50,6 @@ MP4 version (with playback controls/speed): [generation_demo.mp4](docs/media/dem
 Caption: **Reconstruction case** — conditioned on an EF value that is the **same** as the real video's EF.
 
 MP4 version (with playback controls/speed): [reconstruction_demo.mp4](docs/media/demos/reconstruction_demo.mp4)
-
-### Live Demo
-
-Try the model in your browser, no setup required:
-[**huggingface.co/spaces/EngEmmanuel/EchoLVFM**](https://huggingface.co/spaces/EngEmmanuel/EchoLVFM)
 
 ---
 
