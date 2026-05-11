@@ -9,12 +9,6 @@
 
 ---
 
-> **🚧 Code Coming Soon**
->
-> The paper is currently under review. The code for this project will be released following the review stage. Stay tuned!
-
----
-
 ## Overview
 
 **EchoLVFM** is a one-step video generation framework based on Latent Flow Matching, designed for high-fidelity echocardiogram synthesis. By operating directly in a compressed latent space and learning a continuous flow between noise and the target video distribution, EchoLVFM produces realistic cardiac ultrasound video in a **single forward pass** — dramatically reducing inference time compared to multi-step diffusion-based approaches.
@@ -48,6 +42,132 @@ Caption: **Reconstruction case** — conditioned on an EF value that is the **sa
 
 MP4 version (with playback controls/speed): [reconstruction_demo.mp4](docs/media/demos/reconstruction_demo.mp4)
 
+### Live Demo
+
+Try the model in your browser, no setup required:
+[**huggingface.co/spaces/EngEmmanuel/EchoLVFM**](https://huggingface.co/spaces/EngEmmanuel/EchoLVFM)
+
+---
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
+
+### Windows — Triton workaround
+
+`jvp-flash-attention` transitively imports `triton`, and upstream Triton does
+not publish Windows wheels. Install the community Windows fork instead — it
+exposes the same `import triton` module, so `jvp-flash-attention` Just Works.
+
+Pick the Triton version that matches your PyTorch (see the
+[triton-windows compatibility table](https://github.com/triton-lang/triton-windows#readme)):
+
+| PyTorch | triton-windows |
+|---------|----------------|
+| 2.7     | `<3.4`         |
+| 2.8     | `<3.5`         |
+| 2.9     | `<3.6`         |
+
+```bash
+pip uninstall triton                      # if a stub was previously installed
+pip install -U "triton-windows<3.5"       # example: for torch 2.8
+```
+
+Requirements: NVIDIA GPU ≥ sm_75 (RTX 20xx+) with CUDA 12, Visual C++
+Redistributable (`vc_redist.x64.exe`), and Windows long-path support enabled.
+
+---
+
+## Data Preparation
+
+The model trains on VAE latent representations of the [CAMUS dataset](https://www.creatis.insa-lyon.fr/Challenge/camus/).
+Pre-encode your videos with the pretrained cardiac VAE:
+
+```python
+from vae.util import load_vae_and_processor
+vae, processor = load_vae_and_processor("HReynaud/EchoFlow", subfolder="vae", device="cuda")
+```
+
+Each video should be saved as a `.pt` file containing `{'mu': ..., 'std': ...}` tensors
+of shape `(T, C, H, W)`. You also need a `metadata.csv` with columns `video_name`, `split`
+(train/val), and `EF_AL` (ejection fraction as a percentage).
+
+A handful of pre-encoded CAMUS samples ship in `sample_data/CAMUS_Latents_4f4/`
+so you can try the code without re-encoding anything yourself.
+
+---
+
+## Pretrained Weights
+
+Weights are published on the Hugging Face Hub at
+[**huggingface.co/EngEmmanuel/EchoLVFM-Weights**](https://huggingface.co/EngEmmanuel/EchoLVFM-Weights)
+and load directly from Python without a manual download:
+
+```python
+from utils.hub import load_model_from_hub
+
+flow = load_model_from_hub(
+    "EngEmmanuel/EchoLVFM-Weights",
+    subfolder="echolvfm_h2",   # also: echolvfm_h1, linear
+    device="cuda",
+)
+```
+
+Each subfolder is independent; only the requested variant's files
+(~293 MB) are downloaded. See `ckpts/README.txt` for the alternative
+Lightning `.ckpt` download path via GitHub Releases.
+
+---
+
+## Training
+
+1. Edit `configs/flow_train/paths/local.yaml` with your data and output paths.
+2. Run:
+
+```bash
+python trainer.py paths=local
+```
+
+Override any value from the command line, e.g.:
+
+```bash
+python trainer.py paths=local flow=linear trainer.lr=1e-4 dataset.batch_size=4
+```
+
+---
+
+## Project Structure
+
+```
+EchoLVFM/
+├── trainer.py                  # Training entry point (PyTorch Lightning + Hydra)
+├── pyproject.toml              # Package config (pip install -e .)
+├── src/
+│   ├── model.py                # UNet3D backbone (spatio-temporal)
+│   ├── custom_loss.py          # Masked flow matching losses
+│   ├── custom_callbacks.py     # Mid-training sampling callback
+│   ├── jvp_flash_attn_proc.py  # JVP-compatible flash attention processor
+│   └── flows/
+│       ├── linear_flow.py      # Linear flow matching (multi-step ODE)
+│       └── rmm_flow.py         # Regularised Masked Mean Flow (single-step)
+├── dataset/
+│   ├── echodataset.py          # CAMUS latent dataset loader
+│   └── util.py                 # Collate functions
+├── configs/flow_train/
+│   ├── flow_train.yaml         # Base config
+│   ├── model/unet.yaml         # UNet3D architecture config
+│   ├── flow/{mean,linear}.yaml # Flow objective configs
+│   └── paths/local.yaml        # Path config — edit this
+├── utils/
+│   ├── train.py                # Model/flow factory functions
+│   ├── util.py                 # Utilities
+│   └── latent_utils.py         # Latent un-scaling utility
+└── vae/
+    └── util.py                 # VAE loading from HuggingFace or local path
+```
 
 ---
 
@@ -64,11 +184,10 @@ If you find this work useful, please consider citing:
 ```bibtex
 @misc{echolvfm2026,
   title         = {EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis},
-  author        = {},
+  author        = {Oladokun, Emmanuel and others},
   year          = {2026},
   eprint        = {2603.13967},
   archivePrefix = {arXiv},
   url           = {https://arxiv.org/abs/2603.13967}
 }
 ```
-

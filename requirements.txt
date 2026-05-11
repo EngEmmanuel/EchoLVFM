@@ -1,0 +1,38 @@
+# Core deep learning
+torch
+torchvision
+diffusers
+accelerate
+lightning
+einops
+jvp-flash-attention
+
+# Flow matching
+torchdiffeq
+
+# Data & config
+hydra-core
+omegaconf
+pandas
+numpy
+
+# Hub integration (transitive via diffusers, but used directly in utils/hub.py)
+huggingface_hub
+safetensors
+
+# Evaluation & logging
+wandb
+lpips
+torchmetrics
+
+# Image/video I/O
+opencv-python
+pillow
+scikit-image
+
+# Test
+pytest
+
+# Benchmarks
+pytest-benchmark
+matplotlib

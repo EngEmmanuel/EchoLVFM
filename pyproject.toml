@@ -1,0 +1,36 @@
+[project]
+name = "echolvfm"
+version = "0.1.0"
+description = "One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "torchvision",
+    "diffusers",
+    "accelerate",
+    "lightning",
+    "einops",
+    "jvp-flash-attention",
+    "torchdiffeq",
+    "hydra-core",
+    "omegaconf",
+    "pandas",
+    "numpy",
+    "wandb",
+    "lpips",
+    "torchmetrics",
+    "opencv-python",
+    "pillow",
+    "scikit-image",
+]
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*", "dataset*", "utils*", "vae*", "evaluation*", "benchmarks*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "bench_*.py"]
