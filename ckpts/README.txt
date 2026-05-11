@@ -52,4 +52,4 @@ Checkpoints are saved by PyTorch Lightning and contain:
 
 The flow type (RMMFlow or LinearFlow) and all model hyperparameters
 are stored in the accompanying Hydra config at:
-    outputs/<run>/.hydra/config.yaml
+    ckpts/<run>/.hydra/config.yaml
