@@ -1,0 +1,9 @@
+Device: cuda:0
+Batch size: 8
+Sampling steps: 1
+Iterations: 100
+
+Per-video timing:
+  Mean: 0.0543 sec
+  Std:  0.0001 sec
+  Throughput: 18.42 videos/sec

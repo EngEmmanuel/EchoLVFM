@@ -1,0 +1,77 @@
+dataset:
+  path: ${paths.data_path}/CAMUS_Latents_${vae.resolution}
+  normalise_latents: true
+  add_eps_to_train_latents: false
+  latent_scaling_path: ${paths.data_path}/CAMUS_Latents_${vae.resolution}/CAMUS_Scaling_${vae.resolution}.pt
+  max_frames: 32
+  batch_size: 2
+  cond_pad_mask: true
+  masking_distribution: 1-frame
+vae:
+  resolution: 4f4
+  scaling_factors:
+    4f4: 0.108
+    4f8: 0.2232
+    16f8: 1.33
+  scaling_factor: 1
+trainer:
+  lr: 5.0e-05
+  lr_scheduler: cosineannealing
+  warmup_epochs: 10
+  loss_mask: pad
+  uncond_prob: 0.0
+  kwargs:
+    max_epochs: 1000
+    precision: 16
+    accelerator: auto
+    accumulate_grad_batches: 1
+sample:
+  every_n_epochs: 50
+  model_sample_kwargs: ${flow.sample_kwargs}
+ckpt:
+  metric:
+    monitor: val_loss
+    filename: '{epoch}-{step}-{${ckpt.metric.monitor}:.3f}'
+    save_top_k: 1
+    mode: min
+    save_last: true
+model:
+  type: unet
+  kwargs:
+    down_block_types:
+    - CrossAttnDownBlockSpatioTemporal
+    - CrossAttnDownBlockSpatioTemporal
+    - CrossAttnDownBlockSpatioTemporal
+    - CrossAttnDownBlockSpatioTemporal
+    up_block_types:
+    - UpBlockSpatioTemporal
+    - UpBlockSpatioTemporal
+    - UpBlockSpatioTemporal
+    - CrossAttnUpBlockSpatioTemporal
+    block_out_channels:
+    - 128
+    - 128
+    - 256
+    - 256
+    num_attention_heads:
+    - 4
+    - 4
+    - 8
+    - 8
+    cross_attention_dim: 1
+    layers_per_block: 2
+    transformer_layers_per_block:
+    - 1
+    - 1
+    - 2
+    - 2
+flow:
+  type: mean
+  kwargs:
+    add_recon_loss: true
+    recon_loss_weight: 1.0
+    prob_default_flow_obj: 0.75
+    adaptive_loss_weight_p: 0.5
+    use_jvp_flash_attn: true
+  sample_kwargs:
+    steps: 1

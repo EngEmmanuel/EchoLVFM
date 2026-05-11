@@ -139,38 +139,6 @@ python trainer.py paths=local flow=linear trainer.lr=1e-4 dataset.batch_size=4
 
 ---
 
-## Project Structure
-
-```
-EchoLVFM/
-├── trainer.py                  # Training entry point (PyTorch Lightning + Hydra)
-├── pyproject.toml              # Package config (pip install -e .)
-├── src/
-│   ├── model.py                # UNet3D backbone (spatio-temporal)
-│   ├── custom_loss.py          # Masked flow matching losses
-│   ├── custom_callbacks.py     # Mid-training sampling callback
-│   ├── jvp_flash_attn_proc.py  # JVP-compatible flash attention processor
-│   └── flows/
-│       ├── linear_flow.py      # Linear flow matching (multi-step ODE)
-│       └── rmm_flow.py         # Regularised Masked Mean Flow (single-step)
-├── dataset/
-│   ├── echodataset.py          # CAMUS latent dataset loader
-│   └── util.py                 # Collate functions
-├── configs/flow_train/
-│   ├── flow_train.yaml         # Base config
-│   ├── model/unet.yaml         # UNet3D architecture config
-│   ├── flow/{mean,linear}.yaml # Flow objective configs
-│   └── paths/local.yaml        # Path config — edit this
-├── utils/
-│   ├── train.py                # Model/flow factory functions
-│   ├── util.py                 # Utilities
-│   └── latent_utils.py         # Latent un-scaling utility
-└── vae/
-    └── util.py                 # VAE loading from HuggingFace or local path
-```
-
----
-
 ## Paper
 
 > **EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis**
@@ -184,10 +152,17 @@ If you find this work useful, please consider citing:
 ```bibtex
 @misc{echolvfm2026,
   title         = {EchoLVFM: One-Step Video Generation via Latent Flow Matching for Echocardiogram Synthesis},
-  author        = {Oladokun, Emmanuel and others},
+  author        = {Oladokun, Emmanuel and Thomas, Sarina and Šprem, Jurica and Grau, Vicente},
   year          = {2026},
   eprint        = {2603.13967},
   archivePrefix = {arXiv},
   url           = {https://arxiv.org/abs/2603.13967}
 }
 ```
+
+## Acknowledgements
+
+This work builds on the following open-source projects:
+
+- Wang, P.: [rectified-flow-pytorch](https://gitlab.com/lucidrains/rectified-flow-pytorch). GitLab (2026).
+- Morehead, A.: [JVP Flash Attention](https://github.com/amorehead/jvp_flash_attention). GitHub (September 2025).

@@ -1,0 +1,12 @@
+- paths=htc
+- model=jvp_max_unet
+- dataset.normalise_latents=true
+- vae.scaling_factor=1
+- dataset.batch_size=2
+- trainer.warmup_epochs=10
+- trainer.kwargs.precision=16
+- trainer.lr_scheduler=cosineannealing
+- +runs=r03
+- vae.resolution=4f4
+- +wandb.tags={tag2:4f4, sweep:miccai_runs}
+- flow=linear
