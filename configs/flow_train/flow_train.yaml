@@ -48,13 +48,6 @@ ckpt:
     mode: min
     save_last: true
 
-# Uncomment to enable Weights & Biases logging:
-#wandb:
-#  watch: false
-#  init_kwargs:
-#    project: echoflow
-#    group: ${flow.type}
-
 hydra:
   run:
     dir: ${paths.train_output_path}/${now:%Y-%m-%d}/${now:%H-%M-%S}
