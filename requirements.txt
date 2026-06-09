@@ -29,6 +29,7 @@ torchmetrics
 opencv-python
 pillow
 scikit-image
+imageio[ffmpeg]
 
 # Test
 pytest
