@@ -86,19 +86,27 @@ Redistributable (`vc_redist.x64.exe`), and Windows long-path support enabled.
 ## Data Preparation
 
 The model trains on VAE latent representations of the [CAMUS dataset](https://www.creatis.insa-lyon.fr/Challenge/camus/).
-Pre-encode your videos with the pretrained cardiac VAE:
+To reproduce the latents from the raw CAMUS data, run the pipeline in order:
+
+1. `python data_preprocessing/convert_camus.py` — raw CAMUS NIfTI → per-view `.mp4`
+   videos + `metadata.csv` (each frame is rotated 90° clockwise then flipped left/right).
+2. `python vae/convert_to_latent_dataset.py` — encode the videos into per-video latent
+   `.pt` files with the pretrained cardiac VAE.
+
 
 ```python
 from vae.util import load_vae_and_processor
-vae, processor = load_vae_and_processor("HReynaud/EchoFlow", subfolder="vae", device="cuda")
+vae, processor = load_vae_and_processor("HReynaud/EchoFlow", subfolder="vae/avae-4f4", device="cuda")
 ```
 
-Each video should be saved as a `.pt` file containing `{'mu': ..., 'std': ...}` tensors
-of shape `(T, C, H, W)`. You also need a `metadata.csv` with columns `video_name`, `split`
-(train/val), and `EF_AL` (ejection fraction as a percentage).
+Each video is saved as a `.pt` file containing `{'mu': ..., 'var': ...}` tensors of shape
+`(T, C, H, W)` (the dataset loader also accepts `'std'`). You also need a `metadata.csv`
+with columns `video_name`, `split` (train/val), and `EF_AL` (ejection fraction as a
+percentage).
 
 A handful of pre-encoded CAMUS samples ship in `sample_data/CAMUS_Latents_4f4/`
-so you can try the code without re-encoding anything yourself.
+so you can try the code without re-encoding anything yourself. Note that it is not possible to replicate 
+these identically
 
 ---
 
